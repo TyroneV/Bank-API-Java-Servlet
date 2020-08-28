@@ -15,6 +15,8 @@ public interface UserDao {
     //READ
     List<User> findUsers();//Admin or Employee
 
+    User findUserByUsername(String username);
+
     User findUserById(int userId);//Admin or Employee
 
     //DELETE

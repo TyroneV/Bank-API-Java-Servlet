@@ -108,6 +108,36 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
+    public User findUserByUsername(String username) {
+        String sql = "select * from "+ConnectionManager.SCHEMA+".user where username = ?";
+        User user = null;
+        try(Connection connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1,username);
+            ResultSet rs = ps.executeQuery();
+            RoleDao roleDao = new RoleDaoImp();
+            UserAccountDao userAccountDao = new UserAccountDaoImp();
+
+            while (rs.next()){
+                user = new User(
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        roleDao.findRole(rs.getInt("role_id")),
+                        userAccountDao.findAccountsByUser(rs.getInt("user_id"))
+                );
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public User findUserById(int userId) {
         String sql = "select * from "+ConnectionManager.SCHEMA+".user where user_id = ?";
         User user = null;

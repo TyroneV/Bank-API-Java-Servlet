@@ -4,7 +4,7 @@ import com.banking.model.User;
 
 public interface BankRpc {
     //Remote Procedure Call
-    User login();
+    User login(String username,String password);
 
     void logout();
 
