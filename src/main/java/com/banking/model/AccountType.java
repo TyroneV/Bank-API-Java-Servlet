@@ -7,6 +7,11 @@ public class AccountType {
     public AccountType(){
 
     }
+
+    public AccountType(int typeId) {
+        this.typeId = typeId;
+    }
+
     public AccountType(int typeId, String type) {
         this.typeId = typeId;
         this.type = type;

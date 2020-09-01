@@ -89,4 +89,25 @@ public class UserAccountDaoImp implements UserAccountDao {
         }
         return accountList;
     }
+
+    @Override
+    public User submitNewUserAccount(int userId, int accountId) {
+        User user = null;
+        String sql ="insert into "+ConnectionManager.SCHEMA+".user_account(user_id,account_id) values " +
+                "(?,?) returning user_id";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setInt(1,userId);
+            ps.setInt(2,accountId);
+
+            ResultSet rs = ps.executeQuery();
+            UserDao userDao = new UserDaoImp();
+            while(rs.next()){
+                user = userDao.findUserById(rs.getInt("user_id"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

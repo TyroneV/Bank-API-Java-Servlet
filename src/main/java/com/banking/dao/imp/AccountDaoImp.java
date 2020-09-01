@@ -3,6 +3,7 @@ package com.banking.dao.imp;
 import com.banking.dao.AccountDao;
 import com.banking.dao.AccountStatusDao;
 import com.banking.dao.AccountTypeDao;
+import com.banking.dao.UserAccountDao;
 import com.banking.model.Account;
 import com.banking.util.ConnectionManager;
 import java.sql.Connection;
@@ -50,12 +51,13 @@ public class AccountDaoImp implements AccountDao {
             ResultSet rs = ps.executeQuery();
             AccountStatusDao accountStatusDao = new AccountStatusDaoImp();
             AccountTypeDao accountTypeDao = new AccountTypeDaoImp();
-
+            UserAccountDao userAccountDao = new UserAccountDaoImp();
             while (rs.next()){
                 accountList.add(new Account(rs.getInt("account_id"),
                         rs.getDouble("account_balance"),
                         accountStatusDao.findAccountStatus(rs.getInt("account_status_id")),
-                        accountTypeDao.findAccountType(rs.getInt("account_type_id"))));
+                        accountTypeDao.findAccountType(rs.getInt("account_type_id")),
+                        userAccountDao.findUsersByAccount(rs.getInt("account_id"))));
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -73,7 +75,6 @@ public class AccountDaoImp implements AccountDao {
             ResultSet rs = ps.executeQuery();
             AccountStatusDao accountStatusDao = new AccountStatusDaoImp();
             AccountTypeDao accountTypeDao = new AccountTypeDaoImp();
-
             while (rs.next()){
                 account.setAccountId(rs.getInt("account_id"));
                 account.setBalance(rs.getDouble("account_balance"));

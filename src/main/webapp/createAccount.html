@@ -13,20 +13,30 @@
 </head>
 <body>
     <div class="mainhead">
-    <h1>ROCP BANK</h1><h2>Gaben</h2>
+    <h1>ROCP BANK</h1><h2>User</h2>
         <form action="/rocp-bank/api/logout" method="post">
             <button class="logoutBtn" type="submit">Log out</button>
         </form>
 
-    <div class="greetings">
-      <h1>Welcome</h1>
-    </div>    
-    <form action="/rocp-bank/api/createAccount" method="post" >
-        <button class="account" type="submit">
-            <p>Create Account</p>
-        </button>
-    </form>
+    </div>
+    <h1 class="title">Create Account</h1>
+    <div class="createaccount">
+        
+           <form action="/rocp-bank/api/create-account" method="post">
 
-</div>
+            <h2 class="labels">Account type :</h2>
+            <p>
+                <label>
+                  <input type="radio" name="account_type" value="1" id="account_type_0" checked>
+                  Checking</label>
+                <br>
+                <label>
+                  <input type="radio" name="account_type" value="2" id="account_type_1" >
+                  Savings</label>
+                <br>
+            </p>
+        <button type="submit">Create</button>
+        </form>
+    </div>
 </body>
 </html>

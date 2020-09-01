@@ -8,8 +8,15 @@ public class Account {
     private AccountStatus status;
     private AccountType type;
     private List<User> userList;
+
     public Account(){
 
+    }
+
+    public Account(AccountStatus status, AccountType type) {
+        this.balance = 0;
+        this.status = status;
+        this.type = type;
     }
 
     public Account(int accountId, double balance, AccountStatus status, AccountType type) {
@@ -17,6 +24,14 @@ public class Account {
         this.balance = balance;
         this.status = status;
         this.type = type;
+    }
+
+    public Account(int accountId, double balance, AccountStatus status, AccountType type, List<User> userList) {
+        this.accountId = accountId;
+        this.balance = balance;
+        this.status = status;
+        this.type = type;
+        this.userList = userList;
     }
 
     public int getAccountId() {
@@ -51,6 +66,13 @@ public class Account {
         this.type = type;
     }
 
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
 
     @Override
     public String toString() {

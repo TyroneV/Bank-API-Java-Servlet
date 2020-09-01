@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="http://localhost:6969/rocp-bank/css/mystyle.css" rel="stylesheet" type="text/css">
     <link href="./css/mystyle.css" rel="stylesheet" type="text/css">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, no-store, must-revalidate">
     <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <meta HTTP-EQUIV="Expires" CONTENT="-1">
+    <meta HTTP-EQUIV="Expires" CONTENT="0">
     <title>ROCP | Login</title>
 </head>
 
@@ -11,14 +13,20 @@
     <div class="mainhead">
       <h1>ROCP BANK</h1>
     </div>
-<form action="/rocp-bank/api/login" method="post">
+    <h1 class="title">Login</h1>
       <div class="logindiv">
-  <h2 class="labels">Username:</h2> <input name  = "username" type = "text" class="inputfield" placeholder = "  Please enter your username...">
-        <h2 class="labels">Password:</h2> <input name  = "password" type = "password" class="inputfield" placeholder = "  Please enter your password...">
+
+        <form action="/rocp-bank/api/login" method="post">
+        <h2 class="labels">Username:</h2> <input name  = "username" type = "text" class="inputfield" placeholder = "  Please enter your username..." required>
+        <h2 class="labels">Password:</h2> <input name  = "password" type = "password" class="inputfield" placeholder = "  Please enter your password..." required>
         <br/>
         <br/>
-        <button type="submit">Sign in</button>
+        <button class="signin" type="submit">Sign in</button>
+        </form>
+        <form action="/rocp-bank/api/register" method="get">
+        <button class="register" type="submit">Register</button>
+        </form>
       </div>
-    </form>
+
 </body>
 </html>

@@ -7,6 +7,11 @@ public class AccountStatus {
     public AccountStatus(){
 
     }
+
+    public AccountStatus(int statusId) {
+        this.statusId = statusId;
+    }
+
     public AccountStatus(int statusId, String status) {
         this.statusId = statusId;
         this.status = status;

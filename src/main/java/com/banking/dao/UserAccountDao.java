@@ -11,4 +11,8 @@ public interface UserAccountDao {
     List<Account> findAccountsByUser(int userId);//Admin or Employee, User if The user owns the account
 
     List<Account> findAccountsByUser(int userId,int statusId);//Admin or Employee, User if The user owns the account
+
+    //Create
+
+    User submitNewUserAccount(int user, int accountId);
 }

@@ -73,4 +73,9 @@ public class TransactionDetails {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    @Override
+    public String toString() {
+        return transactionDate+" "+transactionType+" "+transactionAmount;
+    }
 }
