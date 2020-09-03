@@ -9,7 +9,7 @@ import java.util.List;
 public class HtmlBuilder {
 
     public static String registerUpperPortion(){
-        String s = "<!DOCTYPE html>\n" +
+        return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
                 "    <link href=\"http://localhost:6969/rocp-bank/css/mystyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
@@ -26,11 +26,10 @@ public class HtmlBuilder {
                 "    </div>\n" +
                 "    <h1 class=\"title\">Register</h1>\n" +
                 "  <div class=\"logindiv\">";
-        return s;
     }
 
     public static String registerLowerPortion(){
-        String s = "<form action=\"/rocp-bank/api/register-user\" method=\"post\">\n" +
+        return "<form action=\"/rocp-bank/api/register-user\" method=\"post\">\n" +
                 "            <h2 class=\"labels\">Username:</h2>\n" +
                 "            <input name  = \"username\" type = \"text\" class=\"inputfield\" placeholder = \"  Please enter your username...\" required>\n" +
                 "            <h2 class=\"labels\">Password:</h2>\n" +
@@ -57,11 +56,10 @@ public class HtmlBuilder {
                 "  </div>\n" +
                 "</body>\n" +
                 "</html>";
-        return s;
     }
 
     public static String loginUpper(){
-        String s = "<!DOCTYPE html>\n" +
+        return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
                 "    <link href=\"http://localhost:6969/rocp-bank/css/mystyle.css\" rel=\"stylesheet\" type=\"text/css\">\n" +
@@ -78,11 +76,10 @@ public class HtmlBuilder {
                 "    </div>\n" +
                 "    <h1 class=\"title\">Login</h1>\n" +
                 "      <div class=\"logindiv\">";
-        return s;
     }
 
     public static String loginLower(){
-        String s ="        <form action=\"/rocp-bank/api/login\" method=\"post\">\n" +
+        return "        <form action=\"/rocp-bank/api/login\" method=\"post\">\n" +
                 "        <h2 class=\"labels\">Username:</h2> <input name  = \"username\" type = \"text\" class=\"inputfield\" placeholder = \"  Please enter your username...\" required>\n" +
                 "        <h2 class=\"labels\">Password:</h2> <input name  = \"password\" type = \"password\" class=\"inputfield\" placeholder = \"  Please enter your password...\" required>\n" +
                 "        <br/>\n" +
@@ -97,7 +94,6 @@ public class HtmlBuilder {
                 "\n" +
                 "</body>\n" +
                 "</html>";
-        return s;
     }
 
     public static String accountSummaryUpper(String name, String label){
@@ -131,9 +127,8 @@ public class HtmlBuilder {
         return s;
     }
     public static String accountSummaryLower(){
-        String s = "</body>\n" +
+        return "</body>\n" +
                 "</html>";
-        return s;
     }
 
     public static String accountFormBuilder(Account account){
@@ -145,25 +140,23 @@ public class HtmlBuilder {
             account2 = "2";
         }
 
-        String s = "    <form action=\"/rocp-bank/api/accounts/details\" method=\"Get\" >\n" +
+        return "    <form action=\"/rocp-bank/api/accounts/details\" method=\"Get\" >\n" +
                 "        <button class=\"account"+account2+"\" type=\"submit\" name=\"account_id\" value=\""+account.getAccountId()+"\""+disabled+">\n" +
                 "            <p>"+ account.getType().getType()+"</p>\n" +
                 "            <p>Account number : "+ account.getAccountId()+"</p>\n" +
                 "            <p>Account is currently "+ account.getStatus().getStatus()+"</p>\n" +
                 "        </button>\n" +
                 "    </form>";
-        return s;
     }
     public static String createAccountButton(){
-        String s ="    <form action=\"/rocp-bank/api/createAccount\" method=\"post\" >\n" +
+        return "    <form action=\"/rocp-bank/api/createAccount\" method=\"post\" >\n" +
                 "        <button class=\"account\" type=\"submit\">\n" +
                 "            <p>Submit Account</p>\n" +
                 "        </button>\n" +
                 "    </form>";
-        return s;
     }
     public static String createAccountForm(String response){
-        String s = "   <h1 class=\"title\">Create Account</h1>\n" +
+        return "   <h1 class=\"title\">Create Account</h1>\n" +
                 "    <div class=\"createaccount\">\n" +
                 "        \n" +
                 "           <form action=\"/rocp-bank/api/create-account\" method=\"post\">\n" +
@@ -182,16 +175,15 @@ public class HtmlBuilder {
                 "        <button type=\"submit\">Create</button>\n" +
                 "        </form>\n" +
                 "    </div>";
-        return s;
     }
 
     public static String accountTransactions(Account account, List<TransactionDetails> transactionList){
-        String users = "";
+        StringBuilder users = new StringBuilder();
         for (User u : account.getUserList()) {
-            if(users.equals("")) {
-                users += u.getFirstName() + " " + u.getLastName();
+            if(users.toString().equals("")) {
+                users.append(u.getFirstName()).append(" ").append(u.getLastName());
             }else{
-                users += ","+u.getUsername();
+                users.append(",").append(u.getUsername());
             }
         }
         String s = "    <div class=\"currentaccount\">\n" +
@@ -209,7 +201,7 @@ public class HtmlBuilder {
     }
 
     static String transaction(List<TransactionDetails> transactionList){
-        String transactions = "";
+        StringBuilder transactions = new StringBuilder();
         double lastBalance = 0;
         for (TransactionDetails transaction: transactionList) {
             String symbol = "";
@@ -222,18 +214,11 @@ public class HtmlBuilder {
                     symbol= "-";
                 }
             }
-            transactions += "            <tr>\n" +
-                    "              <td>"+transaction.getTransactionDate()+"</td>\n" +
-                    "              <td>"+transaction.getTransactionType().getTransactionName()+"</td>\n" +
-                    "              <td> "+symbol+formatDecimal(transaction.getTransactionAmount())+"</td>\n" +
-                    "              <td> "+formatDecimal(transaction.getTransactionBalance())+"</td>\n" +
-                    "              <td> "+transaction.getSourceAccountId()+"</td>\n" +
-                    "              <td> "+transaction.getTargetAccountId()+"</td>\n" +
-                    "            </tr>";
+            transactions.append("            <tr>\n" + "              <td>").append(transaction.getTransactionDate()).append("</td>\n").append("              <td>").append(transaction.getTransactionType().getTransactionName()).append("</td>\n").append("              <td> ").append(symbol).append(formatDecimal(transaction.getTransactionAmount())).append("</td>\n").append("              <td> ").append(formatDecimal(transaction.getTransactionBalance())).append("</td>\n").append("              <td> ").append(transaction.getSourceAccountId()).append("</td>\n").append("              <td> ").append(transaction.getTargetAccountId()).append("</td>\n").append("            </tr>");
             lastBalance = transaction.getTransactionBalance();
         }
 
-        String s = "    <div class=\"transactions\">\n" +
+        return "    <div class=\"transactions\">\n" +
                 "        <h1>Transactions :\n" +
                 "        </h1>\n" +
                 "        <table class=\"accountDetails\" id=\"table\">\n" +
@@ -248,7 +233,6 @@ public class HtmlBuilder {
                 transactions +
                 "        </table>\n" +
                 "    </div>";
-        return s;
     }
 
     public static String withdrawPage(String name, String label, Account account,String results){
@@ -341,23 +325,17 @@ public class HtmlBuilder {
                 "<br>";
 
         if(accountList.size() > 0) {
-            String accountsRow = "";
+            StringBuilder accountsRow = new StringBuilder();
             for (Account a : accountList) {
-                String owners = "";
+                StringBuilder owners = new StringBuilder();
                 for (User u : a.getUserList()) {
-                    if (owners.equals("")) {
-                        owners += u.getUserId();
+                    if (owners.toString().equals("")) {
+                        owners.append(u.getUserId());
                     } else {
-                        owners += "," + u.getUserId();
+                        owners.append(",").append(u.getUserId());
                     }
                 }
-                accountsRow += "      <tr>\n" +
-                        "          <td>" + a.getAccountId() + "</td>\n" +
-                        "          <td>" + formatDecimal(a.getBalance()) + "</td>\n" +
-                        "          <td>" + a.getStatus().getStatusId() + " : " + a.getStatus().getStatus() + "</td>\n" +
-                        "          <td>" + a.getType().getTypeId() + " : " + a.getType().getType() + "</td>\n" +
-                        "          <td>" + owners + "</td>\n" +
-                        "      </tr>";
+                accountsRow.append("      <tr>\n" + "          <td>").append(a.getAccountId()).append("</td>\n").append("          <td>").append(formatDecimal(a.getBalance())).append("</td>\n").append("          <td>").append(a.getStatus().getStatusId()).append(" : ").append(a.getStatus().getStatus()).append("</td>\n").append("          <td>").append(a.getType().getTypeId()).append(" : ").append(a.getType().getType()).append("</td>\n").append("          <td>").append(owners).append("</td>\n").append("      </tr>");
             }
 
             accountTable = "<br><div class=\"transactions\">\n" +
@@ -376,17 +354,9 @@ public class HtmlBuilder {
                     "  </div>";
         }
         if(userList.size() > 0) {
-            String userRow = "";
+            StringBuilder userRow = new StringBuilder();
             for (User u : userList) {
-                userRow += "            <tr>\n" +
-                        "                <td>" + u.getUserId() + "</td>\n" +
-                        "                <td>" + u.getUsername() + "</td>\n" +
-                        "                <td>" + u.getPassword() + "</td>\n" +
-                        "                <td>" + u.getFirstName() + "</td>\n" +
-                        "                <td>" + u.getLastName() + "</td>\n" +
-                        "                <td>" + u.getEmail() + "</td>\n" +
-                        "                <td>" + u.getRole().getRoleId() + " : " + u.getRole().getRole() + "</td>\n" +
-                        "            </tr>";
+                userRow.append("            <tr>\n" + "                <td>").append(u.getUserId()).append("</td>\n").append("                <td>").append(u.getUsername()).append("</td>\n").append("                <td>").append(u.getPassword()).append("</td>\n").append("                <td>").append(u.getFirstName()).append("</td>\n").append("                <td>").append(u.getLastName()).append("</td>\n").append("                <td>").append(u.getEmail()).append("</td>\n").append("                <td>").append(u.getRole().getRoleId()).append(" : ").append(u.getRole().getRole()).append("</td>\n").append("            </tr>");
             }
             userTable = "<br><div class=\"transactions\">\n" +
                     "        <h1>Users :\n" +
@@ -417,17 +387,14 @@ public class HtmlBuilder {
         if(admin){
             List<Role> roleList = BankingService.findRoles();
             submit = "admin";
-            String radioCenter = "";
+            StringBuilder radioCenter = new StringBuilder();
             int i = 0;
             for (Role r:roleList) {
                 String checked = "";
                 if(r.getRoleId() == user.getRole().getRoleId()){
                     checked = "checked";
                 }
-                radioCenter += "<label>\n" +
-                        "<input type=\"radio\" name=\"user_type\" value=\""+r.getRoleId()+"\" id=\"user_type_"+i+"\" "+checked+">\n" +
-                        r.getRole()+"</label>\n" +
-                        "<br>";
+                radioCenter.append("<label>\n" + "<input type=\"radio\" name=\"user_type\" value=\"").append(r.getRoleId()).append("\" id=\"user_type_").append(i).append("\" ").append(checked).append(">\n").append(r.getRole()).append("</label>\n").append("<br>");
                 i++;
             }
 
@@ -462,8 +429,8 @@ public class HtmlBuilder {
 
     public static String accountUpdatePage(User user,Account account,String response){
         String s;
-        String statusRadio = "";
-        String typeRadio ="";
+        StringBuilder statusRadio = new StringBuilder();
+        StringBuilder typeRadio = new StringBuilder();
         List<AccountStatus> statusList = BankingService.findAccountStatus();
         List<AccountType> typeList = BankingService.findAccountTypes();
         int i = 0;
@@ -472,11 +439,7 @@ public class HtmlBuilder {
             if(status.getStatusId() == account.getStatus().getStatusId()){
                 checked = "checked";
             }
-            statusRadio += "<label>\n" +
-                    "<input type=\"radio\" name=\"account_status\" value=\""
-                    +status.getStatusId()+"\" id=\"account_status_"+i+"\""+checked+">\n" +
-                    status.getStatus()+"</label>\n" +
-                    "<br>";
+            statusRadio.append("<label>\n" + "<input type=\"radio\" name=\"account_status\" value=\"").append(status.getStatusId()).append("\" id=\"account_status_").append(i).append("\"").append(checked).append(">\n").append(status.getStatus()).append("</label>\n").append("<br>");
             i++;
         }
         int j = 0;
@@ -485,11 +448,7 @@ public class HtmlBuilder {
             if(type.getTypeId() == account.getType().getTypeId()){
                 checked = "checked";
             }
-            typeRadio += "<label>\n" +
-                    "<input type=\"radio\" name=\"account_type\" value=\""
-                    +type.getTypeId()+"\" id=\"account_type_"+j+"\""+checked+">\n" +
-                     type.getType()+"</label>\n" +
-                    "<br>";
+            typeRadio.append("<label>\n" + "<input type=\"radio\" name=\"account_type\" value=\"").append(type.getTypeId()).append("\" id=\"account_type_").append(j).append("\"").append(checked).append(">\n").append(type.getType()).append("</label>\n").append("<br>");
             j++;
         }
         String accountUpdate = "<h1 class=\"title\">Update Account</h1>\n" +
