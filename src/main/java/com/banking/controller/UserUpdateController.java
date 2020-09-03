@@ -47,7 +47,7 @@ public class UserUpdateController {
             User currentUser = (User)session.getAttribute("current_user");
             User targetUser = currentUser;
             if(adminUpdate){
-                targetUser = BankingService.findUser(Integer.parseInt(request.getParameter("update_id")));
+                targetUser = (User)session.getAttribute("updated_user");
             }
             boolean check = session != null && targetUser != null;
             if (check) {
@@ -80,6 +80,8 @@ public class UserUpdateController {
                 }else {
                     updateUserPage(response,request,"<h4 class=\"error\">Username already exist! please try again!</h4>");
                 }
+            } else {
+                response.sendRedirect("http://localhost:6969/rocp-bank/api/login");
             }
         } catch (NullPointerException e){
             response.sendRedirect("http://localhost:6969/rocp-bank/api/login");
@@ -87,8 +89,10 @@ public class UserUpdateController {
     }
 
     private static void updateUserPageAdmin(HttpServletResponse response,HttpServletRequest request,String result) throws IOException {
+        HttpSession session = request.getSession();
         response.setContentType("text/html");
         User user = BankingService.findUser(Integer.parseInt(request.getParameter("update_id")));
+        session.setAttribute("updated_user", user);
         PrintWriter out = response.getWriter();
         String html = HtmlBuilder.updatePage(user,result,true);
         out.print(html);
