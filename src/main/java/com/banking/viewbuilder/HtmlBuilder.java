@@ -151,7 +151,7 @@ public class HtmlBuilder {
     public static String createAccountButton(){
         return "    <form action=\"/rocp-bank/api/createAccount\" method=\"post\" >\n" +
                 "        <button class=\"account\" type=\"submit\">\n" +
-                "            <p>Submit Account</p>\n" +
+                "            <p>Open a new Account</p>\n" +
                 "        </button>\n" +
                 "    </form>";
     }
