@@ -227,6 +227,8 @@ public class HtmlBuilder {
                     "              <td>"+transaction.getTransactionType().getTransactionName()+"</td>\n" +
                     "              <td> "+symbol+formatDecimal(transaction.getTransactionAmount())+"</td>\n" +
                     "              <td> "+formatDecimal(transaction.getTransactionBalance())+"</td>\n" +
+                    "              <td> "+transaction.getSourceAccountId()+"</td>\n" +
+                    "              <td> "+transaction.getTargetAccountId()+"</td>\n" +
                     "            </tr>";
             lastBalance = transaction.getTransactionBalance();
         }
@@ -239,7 +241,9 @@ public class HtmlBuilder {
                 "              <th>Date</th>\n" +
                 "              <th>Type</th>\n" +
                 "              <th>Amount</th>\n" +
-                "              <th>Balance</th>\n" +
+                "              <th>Source Balance</th>\n" +
+                "              <th>Source ID</th>\n" +
+                "              <th>Destination ID</th>\n" +
                 "            </tr>\n" +
                 transactions +
                 "        </table>\n" +
