@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountTypeDaoImp implements AccountTypeDao {
     @Override
@@ -29,5 +31,25 @@ public class AccountTypeDaoImp implements AccountTypeDao {
             e.printStackTrace();
         }
         return accountType;
+    }
+
+    @Override
+    public List<AccountType> findAccountType() {
+        List<AccountType> accountTypeList = new ArrayList<>();
+        String sql = "select type_id,type from "
+                + ConnectionManager.SCHEMA+
+                ".account_type";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                accountTypeList.add(
+                        new AccountType(rs.getInt("type_id"),
+                                rs.getString("type")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accountTypeList;
     }
 }

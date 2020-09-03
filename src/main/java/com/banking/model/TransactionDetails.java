@@ -7,31 +7,31 @@ public class TransactionDetails {
     int transactionId;
     TransactionType transactionType;
     double transactionAmount;
+    double transactionBalance;
     Date transactionDate;
-    int accountId;
+    int sourceAccountId;
+    int targetAccountId;
 
     public TransactionDetails() {
     }
 
-    public TransactionDetails(TransactionType transactionType, double transactionAmount, int accountId) {
+    public TransactionDetails(TransactionType transactionType, double transactionAmount, double transactionBalance, Date transactionDate, int sourceAccountId, int targetAccountId) {
         this.transactionType = transactionType;
         this.transactionAmount = transactionAmount;
-        this.accountId = accountId;
-    }
-
-    public TransactionDetails(TransactionType transactionType, double transactionAmount, Date transactionDate, int accountId) {
-        this.transactionType = transactionType;
-        this.transactionAmount = transactionAmount;
+        this.transactionBalance = transactionBalance;
         this.transactionDate = transactionDate;
-        this.accountId = accountId;
+        this.sourceAccountId = sourceAccountId;
+        this.targetAccountId = targetAccountId;
     }
 
-    public TransactionDetails(int transactionId, TransactionType transactionType, double transactionAmount, Date transactionDate, int accountId) {
+    public TransactionDetails(int transactionId, TransactionType transactionType, double transactionAmount, double transactionBalance, Date transactionDate, int sourceAccountId, int targetAccountId) {
         this.transactionId = transactionId;
         this.transactionType = transactionType;
         this.transactionAmount = transactionAmount;
+        this.transactionBalance = transactionBalance;
         this.transactionDate = transactionDate;
-        this.accountId = accountId;
+        this.sourceAccountId = sourceAccountId;
+        this.targetAccountId = targetAccountId;
     }
 
     public int getTransactionId() {
@@ -67,15 +67,47 @@ public class TransactionDetails {
     }
 
     public int getAccountId() {
-        return accountId;
+        return sourceAccountId;
     }
 
     public void setAccountId(int accountId) {
-        this.accountId = accountId;
+        this.sourceAccountId = accountId;
+    }
+
+    public int getSourceAccountId() {
+        return sourceAccountId;
+    }
+
+    public void setSourceAccountId(int sourceAccountId) {
+        this.sourceAccountId = sourceAccountId;
+    }
+
+    public int getTargetAccountId() {
+        return targetAccountId;
+    }
+
+    public void setTargetAccountId(int targetAccountId) {
+        this.targetAccountId = targetAccountId;
+    }
+
+    public double getTransactionBalance() {
+        return transactionBalance;
+    }
+
+    public void setTransactionBalance(double transactionBalance) {
+        this.transactionBalance = transactionBalance;
     }
 
     @Override
     public String toString() {
-        return transactionDate+" "+transactionType+" "+transactionAmount;
+        return "TransactionDetails{" +
+                "transactionId=" + transactionId +
+                ", transactionType=" + transactionType +
+                ", transactionAmount=" + transactionAmount +
+                ", transactionBalance=" + transactionBalance +
+                ", transactionDate=" + transactionDate +
+                ", sourceAccountId=" + sourceAccountId +
+                ", targetAccountId=" + targetAccountId +
+                '}';
     }
 }

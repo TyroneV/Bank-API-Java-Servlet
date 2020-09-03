@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoleDaoImp implements RoleDao {
     @Override
@@ -27,5 +29,23 @@ public class RoleDaoImp implements RoleDao {
             e.printStackTrace();
         }
         return role;
+    }
+
+    @Override
+    public List<Role> findRoles() {
+        List<Role> roleList = new ArrayList<>();
+        String sql = "select role_id,role from "
+                +ConnectionManager.SCHEMA+
+                ".role";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                roleList.add(new Role(rs.getInt("role_id"),rs.getString("role")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roleList;
     }
 }

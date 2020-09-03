@@ -11,7 +11,7 @@ public class User {
     private String email; // not null
     private Role role;
     private List<Account> accounts;
-
+    private Account currentAccount;
     public User(){
 
     }
@@ -108,6 +108,14 @@ public class User {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
+
+    public void setCurrentAccount(Account currentAccount) {
+        this.currentAccount = currentAccount;
     }
 
     @Override

@@ -89,7 +89,7 @@ public class AccountDaoImp implements AccountDao {
 
     @Override
     public List<Account> findAccountsByStatus(int statusId) {
-        String sql = "select * from "+ ConnectionManager.SCHEMA+".account where status_id = ?";
+        String sql = "select * from "+ ConnectionManager.SCHEMA+".account where account_status_id = ?";
         List<Account> accountList = new ArrayList<>();
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -114,16 +114,15 @@ public class AccountDaoImp implements AccountDao {
     @Override
     public Account updateAccount(Account account) {
         String sql = "update "+ ConnectionManager.SCHEMA+".account " +
-                "set account_id = ?, account_balance = ?, " +
+                "set account_balance = ?, " +
                 "account_status_id = ?, account_type_id = ? " +
                 "where account_id = ?";
         try(Connection connection = ConnectionManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1,account.getAccountId());
-            ps.setDouble(2,account.getBalance());
-            ps.setInt(3,account.getStatus().getStatusId());
-            ps.setInt(4,account.getType().getTypeId());
-            ps.setInt(5,account.getAccountId());
+            ps.setDouble(1,account.getBalance());
+            ps.setInt(2,account.getStatus().getStatusId());
+            ps.setInt(3,account.getType().getTypeId());
+            ps.setInt(4,account.getAccountId());
             ps.execute();
         }catch (SQLException e){
             e.printStackTrace();

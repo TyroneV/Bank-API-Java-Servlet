@@ -14,7 +14,7 @@ public class TransactionTypeDaoImp implements TransactionTypeDao {
     public TransactionType findTransactionType(int transaction_id) {
         TransactionType transactionType = null;
         String sql ="select * from "
-                +ConnectionManager.SCHEMA+".transaction_type where transaction_id = ?";
+                +ConnectionManager.SCHEMA+".transaction_type where transaction_type_id = ?";
         try ( Connection conn = ConnectionManager.getConnection();
               PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1,transaction_id);
@@ -22,8 +22,8 @@ public class TransactionTypeDaoImp implements TransactionTypeDao {
             while (rs.next()){
                 transactionType =
                         new TransactionType(
-                                rs.getInt("transaction_id"),
-                                rs.getString("transaction_name"));
+                                rs.getInt("transaction_type_id"),
+                                rs.getString("transaction_type_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

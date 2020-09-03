@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountStatusDaoImp implements AccountStatusDao {
     @Override
@@ -28,5 +30,25 @@ public class AccountStatusDaoImp implements AccountStatusDao {
             e.printStackTrace();
         }
         return accountStatus;
+    }
+
+    @Override
+    public List<AccountStatus> findAccountStatus() {
+        List<AccountStatus> statusList = new ArrayList<>();
+        String sql = "select status_id,status from "
+                + ConnectionManager.SCHEMA+
+                ".account_status";
+        try (Connection connection = ConnectionManager.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                statusList.add(
+                        new AccountStatus(rs.getInt("status_id"),
+                                rs.getString("status")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return statusList;
     }
 }

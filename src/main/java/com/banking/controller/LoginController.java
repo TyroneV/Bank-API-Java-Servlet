@@ -36,16 +36,15 @@ public class LoginController {
         }
     }
     public static void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
+            response.setContentType("text/html");
         }
-        request.getRequestDispatcher("/api/login").forward(request,response);
-        //HomeController.getHomePage(request,response);
+        HomeController.getHomePage(request, response);
     }
 
-    static void loginPage(HttpServletResponse response,String customInput) throws IOException {
+    private static void loginPage(HttpServletResponse response,String customInput) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.write(HtmlBuilder.loginUpper() + customInput + HtmlBuilder.loginLower());

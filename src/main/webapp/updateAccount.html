@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="http://localhost:6969/rocp-bank/css/mystyle.css" rel="stylesheet" type="text/css">
+    <link href="css/mystyle.css" rel="stylesheet" type="text/css">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, no-store, must-revalidate">
+    <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="0">
+    <title>ROCP | Register</title>
+</head>
+
+<body>
+    <div class="mainhead">
+      <h1>ROCP BANK</h1>
+    </div>
+    <h1 class="title">Update Account</h1>
+  <div class="logindiv">
+      <form action="/rocp-bank/api/update-user" method="post">
+              <h2 class="labels">Account Id:</h2>
+            <input name  = "account_id" type = "number" class="inputfield" placeholder = "" required value="1">
+            <h2 class="labels">Balance:</h2>
+            <input name  = "username" type="number" class="inputfield" placeholder = "" required value="1000">
+            <h2 class="labels">Account Status :</h2>
+            <p>
+                 <label>
+                  <input type="radio" name="account_status" value="1" id="account_status_0">
+                  Pending</label>
+                <br>
+                <label>
+                  <input type="radio" name="account_status" value="2" id="account_status_1" >
+                  Open</label>
+                <br>
+            </p>
+            <h2 class="labels">Account Type :</h2>
+            <p>
+                 <label>
+                  <input type="radio" name="account_type" value="1" id="account_type_0">
+                  checkings</label>
+                <br>
+                <label>
+                  <input type="radio" name="account_type" value="2" id="account_type_1" >
+                  savings</label>
+                <br>
+            </p>
+        <button type="submit">Update</button>
+    </form>
+  </div>
+</body>
+</html>
