@@ -1,4 +1,7 @@
 # Banking API
+Banking API I made for Java Oracle Certification of Revature.
+
+
 The Banking API will manage the bank accounts of its users. It will be managed by the Bank's employees and admins. Employees and Admins count as Standard users with additional abilities.
 * Employees can view all customer information, but not modify in any way.
 * Admins can both view all user information, as well as directly modify it.
